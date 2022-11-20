@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "category": "Asia Heritage"
+    },
+    {
+      "id": 2,
+      "category": "Pemuda City Walk"
+    },
+    {
+      "id": 3,
+      "category": "Taman Okura"
+    },
+    {
+      "id": 4,
+      "category": "Kota Tua Senapelan"
+    }
+  ]
+
+}
