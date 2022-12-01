@@ -8,6 +8,7 @@ import Rencanamu from './Rencanamu';
 import Profile from './Profile';
 import Deskripsi from './Deskripsi';
 import Akamsi from './Akamsi';
+import Setting from './Setting';
 
 export {
   Splash,
@@ -20,4 +21,5 @@ export {
   Profile,
   Deskripsi,
   Akamsi,
+  Setting,
 };

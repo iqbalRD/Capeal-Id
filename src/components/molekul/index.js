@@ -5,6 +5,9 @@ import ListAkamsi from './ListAkamsi';
 import Ulasan from './Ulasan';
 import ProfileContributor from './ProfileContributor';
 import ModalUlasan from './ModalUlasan';
+import Profilee from './Profilee';
+import ButtonIconText from './ButtonIconText';
+import Loading from './Loading';
 
 export {
   BottomNavigator,
@@ -14,4 +17,7 @@ export {
   Ulasan,
   ProfileContributor,
   ModalUlasan,
+  Profilee,
+  ButtonIconText,
+  Loading,
 };

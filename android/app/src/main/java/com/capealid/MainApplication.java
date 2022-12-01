@@ -13,7 +13,9 @@ import com.capealid.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+
 public class MainApplication extends Application implements ReactApplication {
+  
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {

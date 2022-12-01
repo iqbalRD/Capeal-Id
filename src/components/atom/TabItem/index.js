@@ -4,10 +4,13 @@ import {
   ICBeranda,
   ICBerandaActive,
   ICBagikan,
+  ICBagikanActive,
   ICCari,
   ICCariActive,
   ICRencanamu,
   ICRencanamuActive,
+  ICProfileActive,
+  ICProfile,
 } from '../../../assets';
 
 const TabItem = ({title, active, onPress, onLongPress}) => {
@@ -23,6 +26,9 @@ const TabItem = ({title, active, onPress, onLongPress}) => {
     }
     if (title === 'Rencanamu') {
       return active ? <ICRencanamuActive /> : <ICRencanamu />;
+    }
+    if (title === 'Profile') {
+      return active ? <ICProfileActive /> : <ICProfile />;
     }
 
     return <ICBeranda />;

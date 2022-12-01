@@ -29,11 +29,24 @@ import IconStarNull from './IconStarNull.svg';
 import IconLike from './like.svg';
 import IconBagikan from './bagikan.svg';
 import IconStarNullBig from './IconStarNullBig.svg';
+import ICProfile from './ICProfile.svg';
+import ICProfileActive from './ICProfilActive.svg';
+import IcSetting from './settings.svg';
+import IconBackBlue from './arow-blue.svg';
+import IconUbahProfil from './iconuser.svg';
+import IconGantiSandi from './icongantisandi.svg';
+import IconGantiAkun from './icongantiakun.svg';
+import IconTentang from './icontentang.svg';
+import IconBantuan from './iconbantuan.svg';
+import ICBagikanActive from './IcbagikanActive.svg';
+import IcLogout from './logout.svg';
+
 export {
   ICGoogle,
   ICBeranda,
   ICBerandaActive,
   ICBagikan,
+  ICBagikanActive,
   ICCari,
   ICCariActive,
   ICRencanamu,
@@ -61,4 +74,14 @@ export {
   IconLike,
   IconBagikan,
   IconStarNullBig,
+  ICProfile,
+  ICProfileActive,
+  IcSetting,
+  IconBackBlue,
+  IconUbahProfil,
+  IconGantiSandi,
+  IconGantiAkun,
+  IconTentang,
+  IconBantuan,
+  IcLogout,
 };

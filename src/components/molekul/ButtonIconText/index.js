@@ -1,12 +1,12 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
-import {Button} from '..';
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Button} from '../../atom/Button';
 
-const ButtonIconText = ({onPress}) => {
+const ButtonIconText = ({onPress, iconn, title}) => {
   return (
     <View style={styles.container}>
-      <Button type="icon-only" icon="plus" />
-      <Text style={styles.posisi}>Tulis Ulasan</Text>
+      <Button type="icon-only" icon={iconn} onPress={onPress} />
+      <Text style={styles.posisi}>{title}</Text>
     </View>
   );
 };

@@ -1,142 +1,141 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {ICGoogle, ILLogo} from '../../assets';
-import {Gap, Link} from '../../components';
-import {TextInput} from 'react-native-paper';
-import {Button} from 'react-native-paper';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useState} from 'react';
+import {ILLogo} from '../../assets';
+import {Gap, Link, IconText, Input, Button, Loading} from '../../components';
+import {useForm} from '../../utils';
+import {showMessage, hideMessage} from 'react-native-flash-message';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {autentikasi, db} from '../../config/Firebase';
+import {ref, set} from 'firebase/database';
 
-const Login = () => {
-  const [text, setText] = React.useState('');
+const Register = ({navigation}) => {
+  const [form, setForm] = useForm({
+    fullName: '',
+    email: '',
+    password: '',
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const onContinue = () => {
+    setLoading(true);
+    createUserWithEmailAndPassword(autentikasi, form.email, form.password)
+      .then(success => {
+        setLoading(false);
+        setForm('reset');
+
+        set(ref(db, 'users/' + success.user.uid), {
+          fullName: form.fullName,
+          email: form.email,
+        });
+
+        console.log('succes', success);
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        setLoading(false);
+        showMessage({
+          message: errorMessage,
+          type: 'info',
+          backgroundColor: 'red',
+          color: 'white',
+        });
+        console.log('eror register', error);
+      });
+  };
 
   return (
-    <View style={styles.page}>
-      <View style={styles.layout}>
-        <ILLogo style={styles.logo} />
-      </View>
+    <>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.page}>
+          <View style={styles.layout}>
+            <ILLogo style={styles.logo} />
+          </View>
 
-      <Gap height={50} />
+          <Gap height={20} />
 
-      <View style={styles.input}>
-        <TextInput
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-            borderColor: '#5E5E5E',
-          }}
-          placeholder="Username"
-          value={text}
-          onChangeText={text => setText(text)}
-          mode="flat"
-        />
-      </View>
+          <View style={{paddingHorizontal: 20}}>
+            <Gap height={22} />
+            <Input
+              label="Nama Lengkap"
+              value={form.fullName}
+              onChangeText={value => setForm('fullName', value)}
+            />
+            <Gap height={22} />
+            <Input
+              label="Email"
+              value={form.email}
+              onChangeText={value => setForm('email', value)}
+            />
+            <Gap height={22} />
+            <Input
+              label="Kata Sandi"
+              value={form.password}
+              onChangeText={value => setForm('password', value)}
+              secureTextEntry
+            />
 
-      <Gap height={14} />
+            <Gap height={42} />
+            <Button
+              title="Daftar"
+              padding={16}
+              border={20}
+              height={53}
+              onPress={onContinue}
+            />
+          </View>
 
-      <View style={styles.input}>
-        <TextInput
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-            borderColor: '#5E5E5E',
-          }}
-          placeholder="Email"
-          value={text}
-          onChangeText={text => setText(text)}
-          mode="flat"
-        />
-      </View>
+          <Gap height={29} />
 
-      <Gap height={14} />
+          <Text style={styles.text3}>Atau coba cara lebih mudah</Text>
+          <Gap height={31} />
 
-      <View style={styles.input}>
-        <TextInput
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-            borderColor: '#5E5E5E',
-          }}
-          placeholder="Konfirmas Password"
-          secureTextEntry
-          right={<TextInput.Icon icon="eye" />}
-          mode="flat"
-        />
-      </View>
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <IconText
+              icon="Continue with Google"
+              border={20}
+              width={281}
+              height={48}
+              borderWidth={1}
+              paddingLeft={50}
+            />
+          </TouchableOpacity>
 
-      <Gap height={14} />
+          <Gap height={22} />
 
-      <View style={styles.input}>
-        <TextInput
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-            borderColor: '#5E5E5E',
-          }}
-          placeholder="Konfirmas Password"
-          secureTextEntry
-          right={<TextInput.Icon icon="eye" />}
-          mode="flat"
-        />
-      </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={styles.text3}>Suda punya akun?</Text>
+            <Link
+              title="Masuk di sini"
+              onPress={() => navigation.navigate('Login')}
+            />
+          </View>
 
-      <Gap height={42} />
-
-      <View style={styles.input}>
-        <Button
-          mode="contained"
-          onPress={() => console.log('Pressed')}
-          textColor="#FFFFFF"
-          buttonColor="#12ADC1">
-          Daftar
-        </Button>
-      </View>
-
-      <Gap height={22} />
-
-      <Text style={styles.text2}>atau coba cara lebih mudah</Text>
-
-      <Gap height={22} />
-
-      <View style={styles.input}>
-        <Button
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-          }}
-          icon={ICGoogle}
-          mode="contained"
-          onPress={() => console.log('Pressed')}
-          buttonColor="white"
-          textColor="black">
-          Continue With Google
-        </Button>
-      </View>
-
-      <Gap height={22} />
-
-      <Text style={styles.text2}>
-        Sudah punya akun?
-        <Link title="Daftar di sini" />
-      </Text>
-    </View>
+          <Gap height={50} />
+        </View>
+      </ScrollView>
+      {loading && <Loading />}
+    </>
   );
 };
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
   page: {
@@ -146,32 +145,18 @@ const styles = StyleSheet.create({
   layout: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 31,
   },
   logo: {
-    marginTop: 31,
     marginVertical: 22,
-  },
-  title: {
-    fontFamily: 'IBM Plex Sans-Bold',
-    fontSize: 20,
-    fontWeight: '700',
-    color: 'black',
-    textAlign: 'center',
-  },
-  input: {
-    width: 350,
-    alignSelf: 'center',
   },
 
   text2: {
-    alignSelf: 'center',
+    paddingRight: 28,
+    alignSelf: 'flex-end',
   },
-  input1: {
-    background: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#5E5E5E',
-    borderRadius: 20,
-    padding: 18,
-    paddingLeft: 26,
+
+  text3: {
+    alignSelf: 'center',
   },
 });

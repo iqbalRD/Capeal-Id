@@ -59,5 +59,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 12,
     backgroundColor: '#FFFFFF',
+    alignItems: 'center',
   },
 });

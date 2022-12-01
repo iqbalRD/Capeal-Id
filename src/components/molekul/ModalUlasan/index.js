@@ -15,7 +15,7 @@ const ModalUlasan = ({navigation}) => {
   const [modal, setModal] = useState(false);
   return (
     <TouchableOpacity onPress={() => setModal(true)}>
-      <ButtonIconText />
+      <ButtonIconText iconn="plus" title="Tulis ulasan" />
       <Modal isVisible={modal}>
         <View
           style={{

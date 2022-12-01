@@ -5,7 +5,7 @@ import Link from './Link';
 import TabItem from './TabItem';
 import DetailFasilitas from './DetailFasilitas';
 import DetailBiaya from './DetailBiaya';
-import ButtonIconText from './ButtonIconText';
+import IconText from './IconText';
 
 export {
   Input,
@@ -15,5 +15,5 @@ export {
   TabItem,
   DetailBiaya,
   DetailFasilitas,
-  ButtonIconText,
+  IconText,
 };

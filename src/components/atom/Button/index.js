@@ -13,6 +13,7 @@ const Button = ({
   marginLeft,
   marginRight,
   borderWidth,
+  height,
 }) => {
   if (type === 'icon-only') {
     return <IconOnly icon={icon} onPress={onPress} />;
@@ -27,6 +28,7 @@ const Button = ({
         marginRight,
         marginLeft,
         borderWidth,
+        height,
       )}
       onPress={onPress}>
       <Text style={styles.text(type)}>{title}</Text>
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
     marginRight,
     marginLeft,
     borderWidth,
+    height,
   ) => ({
     backgroundColor: type === 'secondary' ? '#FFFFFF' : '#12ADC1',
     paddingVertical: padding,
@@ -54,6 +57,7 @@ const styles = StyleSheet.create({
     marginLeft: marginLeft,
     borderWidth: borderWidth,
     borderColor: type === 'secondary' ? '#12ADC1' : '#FFFFFF',
+    height: height,
   }),
   text: type => ({
     fontSize: 18,

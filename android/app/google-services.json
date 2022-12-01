@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "584886819171",
+    "project_id": "capeal-app",
+    "storage_bucket": "capeal-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584886819171:android:ba1c1e2bb774287bff1b56",
+        "android_client_info": {
+          "package_name": "com.capealid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584886819171-hmug6m2o2uq3ik3mq2andkp1mfmf8mc6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capealid",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "584886819171-g8ltam02qo4q9t9jpbp4qnndtt59jqpc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBneys4Z2nIrKMfPjnM5k8dV3yONZ18Yv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584886819171-g8ltam02qo4q9t9jpbp4qnndtt59jqpc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

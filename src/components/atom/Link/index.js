@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     textAlign: size,
     fontWeight: '600',
     textDecorationLine: 'underline',
-    color: 'black',
+    color: '#005EBD',
     marginRight: paddingg,
   }),
 });

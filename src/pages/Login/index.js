@@ -1,109 +1,143 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {ICGoogle, ILLogo} from '../../assets';
-import {Gap, Link} from '../../components';
-import {TextInput} from 'react-native-paper';
-import {Button} from 'react-native-paper';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import React, {useState} from 'react';
+import {ILLogo} from '../../assets';
+import {Button, Gap, IconText, Input, Link, Loading} from '../../components';
+import {useForm} from '../../utils';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {autentikasi, db} from '../../config/Firebase';
+import {showMessage, hideMessage} from 'react-native-flash-message';
+import {ref, onValue} from 'firebase/database';
 
 const Login = ({navigation}) => {
-  const [text, setText] = React.useState('');
+  const [form, setForm] = useForm({
+    email: '',
+    password: '',
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const onContinue = () => {
+    setLoading(true);
+    signInWithEmailAndPassword(autentikasi, form.email, form.password)
+      .then(res => {
+        setLoading(false);
+        setForm('reset');
+        const userId = autentikasi.currentUser.uid;
+        return onValue(
+          ref(db, '/users/' + userId),
+          snapshot => {
+            snapshot.val(form.email) && snapshot.val(form.password);
+
+            navigation.replace('MainApp');
+          },
+          {
+            onlyOnce: true,
+          },
+
+          console.log('succes', res),
+        );
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        setLoading(false);
+        showMessage({
+          message: errorMessage,
+          type: 'info',
+          backgroundColor: 'red',
+          color: 'white',
+        });
+        console.log('eror register', error);
+      });
+  };
 
   return (
-    <View style={styles.page}>
-      <View style={styles.layout}>
-        <ILLogo style={styles.logo} />
-        <Text style={styles.title}>
-          Masuk untuk temukan pengalaman terbaikmu bersama Capeal
-        </Text>
-      </View>
+    <>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.page}>
+          <View style={styles.layout}>
+            <ILLogo style={styles.logo} />
+            <Text style={styles.title}>
+              Masuk untuk temukan pengalaman terbaikmu bersama Capeal
+            </Text>
+          </View>
 
-      <Gap height={22} />
+          <View style={{paddingHorizontal: 20}}>
+            <Gap height={22} />
+            <Input
+              label="Email"
+              value={form.email}
+              onChangeText={value => setForm('email', value)}
+            />
+            <Gap height={22} />
+            <Input
+              label="Kata Sandi"
+              value={form.password}
+              onChangeText={value => setForm('password', value)}
+              secureTextEntry
+            />
 
-      <View style={styles.input}>
-        <TextInput
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-          }}
-          placeholder="Email"
-          value={text}
-          onChangeText={text => setText(text)}
-          mode="flat"
-        />
-      </View>
+            <Gap height={5.71} />
 
-      <Gap height={14} />
+            <View style={styles.text2}>
+              <Link title="Lupa kata sandi?" paddingg={-25} />
+            </View>
+            <Gap height={42} />
+            <Button
+              title="Masuk"
+              padding={16}
+              border={20}
+              height={53}
+              onPress={onContinue}
+            />
+          </View>
 
-      <View style={styles.input}>
-        <TextInput
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-          }}
-          placeholder="Password"
-          secureTextEntry
-          right={<TextInput.Icon icon="eye" />}
-          mode="flat"
-        />
-      </View>
+          <Gap height={72} />
 
-      <Gap height={22} />
+          <Text style={styles.text3}>atau coba cara lebih mudah</Text>
+          <Gap height={21} />
 
-      <View style={styles.text2}>
-        <Link title="Lupa kata sandi?" />
-      </View>
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <IconText
+              icon="Continue with Google"
+              border={20}
+              width={281}
+              height={48}
+              borderWidth={1}
+              paddingLeft={50}
+            />
+          </TouchableOpacity>
 
-      <Gap height={22} />
+          <Gap height={22} />
 
-      <View style={styles.input}>
-        <Button
-          mode="contained"
-          onPress={() => navigation.replace('MainApp')}
-          textColor="#FFFFFF"
-          buttonColor="#12ADC1">
-          Masuk
-        </Button>
-      </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={styles.text3}>Belum punya akun?</Text>
+            <Link
+              title="Daftar di sini"
+              onPress={() => navigation.navigate('Register')}
+            />
+          </View>
 
-      <Gap height={22} />
-
-      <Text style={styles.text3}>atau coba cara lebih mudah</Text>
-      <Gap height={22} />
-
-      <View style={styles.input}>
-        <Button
-          style={{
-            backgroundColor: '#ffffff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-          }}
-          icon={ICGoogle}
-          mode="contained"
-          onPress={() => console.log('Pressed')}
-          buttonColor="white"
-          textColor="black">
-          Continue With Google
-        </Button>
-      </View>
-
-      <Gap height={22} />
-
-      <Text style={styles.text3}>
-        Belum punya akun?
-        <Link
-          title="Daftar di sini"
-          onPress={() => navigation.navigate('Register')}
-        />
-      </Text>
-    </View>
+          <Gap height={50} />
+        </View>
+      </ScrollView>
+      {loading && <Loading />}
+    </>
   );
 };
 
@@ -117,9 +151,9 @@ const styles = StyleSheet.create({
   layout: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 26,
   },
   logo: {
-    marginTop: 70,
     marginVertical: 22,
   },
   title: {
@@ -129,10 +163,6 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
   },
-  input: {
-    width: 350,
-    alignSelf: 'center',
-  },
 
   text2: {
     paddingRight: 28,
@@ -141,14 +171,5 @@ const styles = StyleSheet.create({
 
   text3: {
     alignSelf: 'center',
-  },
-
-  input1: {
-    background: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#5E5E5E',
-    borderRadius: 20,
-    padding: 18,
-    paddingLeft: 26,
   },
 });

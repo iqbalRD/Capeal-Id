@@ -12,6 +12,7 @@ import {
   Profile,
   Deskripsi,
   Akamsi,
+  Setting,
 } from '../pages';
 import {BottomNavigator} from '../components';
 
@@ -32,9 +33,15 @@ const MainApp = () => {
         component={Bagikan}
         options={{headerShown: false}}
       />
+
       <Tab.Screen
         name="Rencanamu"
         component={Rencanamu}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
         options={{headerShown: false}}
       />
     </Tab.Navigator>
@@ -43,7 +50,7 @@ const MainApp = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="MainApp">
+    <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen
         name="Splash"
         component={Splash}
@@ -72,6 +79,11 @@ const Router = () => {
       <Stack.Screen
         name="Akamsi"
         component={Akamsi}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Setting"
+        component={Setting}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
